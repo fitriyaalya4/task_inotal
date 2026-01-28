@@ -8,6 +8,9 @@ class InpatientCareScreen extends StatefulWidget {
 }
 
 class _InpatientCareScreenState extends State<InpatientCareScreen> {
+
+  bool onlyAvailable = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +65,8 @@ class _InpatientCareScreenState extends State<InpatientCareScreen> {
           _buildHeader(),
           const SizedBox(height: 16),
           _buildStatisticCard(),
+          const SizedBox(height: 12),
+          _buildFilter(),
           const SizedBox(height: 12),
         ],
       ),
@@ -145,6 +150,45 @@ class _InpatientCareScreenState extends State<InpatientCareScreen> {
                 label: "Penuh",
                 color: Colors.red,
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilter() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: const [
+                  Icon(Icons.filter_list, color: Colors.blue),
+                  SizedBox(width: 8),
+                  Text("Filter", style: TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Hanya Tersedia"),
+                  Switch(
+                    value: onlyAvailable,
+                    onChanged: (value) {
+                      setState(() {
+                        onlyAvailable = value;
+                      });
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
