@@ -35,9 +35,50 @@ class _InpatientCareScreenState extends State<InpatientCareScreen> {
           ),
         ),
       ),
-      body: const Center(
-        child: Text("Konten Halaman"),
-      ),
-    );
-  }
+        body: Column(
+          children: [
+            _buildHeader(),
+            const Expanded(
+              child: Center(
+                child: Text("Konten Halaman"),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget _buildHeader() {
+      return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(bottom: 24),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF3FA9F5), Color(0xFF2D7FEF)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
+          children: const [
+            SizedBox(height: 16),
+            Icon(Icons.bed, color: Colors.white, size: 48),
+            SizedBox(height: 8),
+            Text(
+              "Ketersediaan Bed",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 4),
+            Text(
+              "Update: 15.02",
+              style: TextStyle(color: Colors.white70),
+            ),
+          ],
+        ),
+      );
+    }
 }
