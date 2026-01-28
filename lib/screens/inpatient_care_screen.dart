@@ -68,6 +68,7 @@ class _InpatientCareScreenState extends State<InpatientCareScreen> {
           const SizedBox(height: 12),
           _buildFilter(),
           const SizedBox(height: 12),
+          Expanded(child: _buildGrid()),
         ],
       ),
     );
@@ -195,6 +196,40 @@ class _InpatientCareScreenState extends State<InpatientCareScreen> {
       ),
     );
   }
+  Widget _buildGrid() {
+    final rooms = [
+      Room("IGD", 6, 0.20),
+      Room("VVIP", 2, 0.36),
+      Room("VIP", 3, 0.80),
+      Room("Kelas 1", 10, 0.73),
+      Room("Kelas 2", 12, 0.73),
+      Room("Kelas 3", 18, 0.73),
+    ];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: GridView.builder(
+        itemCount: rooms.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 0.78,
+        ),
+        itemBuilder: (context, index) {
+          return _RoomCard(room: rooms[index]);
+        },
+      ),
+    );
+  }
+}
+
+class Room {
+  final String name;
+  final int available;
+  final double occupancy;
+
+  Room(this.name, this.available, this.occupancy);
 }
 
 class _StatItem extends StatelessWidget {
@@ -231,6 +266,97 @@ class _StatItem extends StatelessWidget {
           style: const TextStyle(color: Colors.grey),
         ),
       ],
+    );
+  }
+}
+class _RoomCard extends StatelessWidget {
+  final Room room;
+
+  const _RoomCard({required this.room});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(room.name,
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    const Text("Rawat Inap", style: TextStyle(color: Colors.grey)),
+                  ],
+                ),
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: Colors.green.shade100,
+                  child: const Icon(Icons.bed, color: Colors.green),
+                )
+              ],
+            ),
+
+            const SizedBox(height: 8),
+
+            Row(
+              children: [
+                Text("${room.available}",
+                    style: const TextStyle(fontSize: 24, color: Colors.green)),
+                const SizedBox(width: 4),
+                const Text("Bed"),
+              ],
+            ),
+
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Colors.green.shade100,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Text("Tersedia", style: TextStyle(color: Colors.green)),
+            ),
+
+            const Text("Okupansi"),
+            const SizedBox(height: 4),
+
+            LinearProgressIndicator(
+              value: room.occupancy,
+              backgroundColor: Colors.grey.shade300,
+              color: Colors.green,
+            ),
+
+            const SizedBox(height: 12),
+
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.attach_money, color: Colors.green),
+                label: const Text("Lihat Harga",
+                  style: TextStyle(color: Colors.green),
+                ),
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(
+                    color: Colors.green,
+                    width: 1.5,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
