@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'inpatient_care_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -60,6 +61,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPassword: true,
                 onChanged: (_) => validateForm(),
               ),
+              const SizedBox(height: 10),
+              _button(
+                "Login",
+                isFormValid
+                    ? () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) =>
+                      const InpatientCareScreen(),
+                    ),
+                  );
+                }
+                    : null,
+              ),
             ],
           ],
         ),
@@ -106,6 +122,26 @@ class _LoginScreenState extends State<LoginScreen> {
             },
           )
               : null,
+        ),
+      ),
+    );
+  }
+  Widget _button(String text, VoidCallback? onTap) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+          onTap == null ? Colors.blue.shade200 : Colors.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
