@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'inpatient_care_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController idC = TextEditingController();
   final TextEditingController passC = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool isFormValid = false;
   bool showPhoneLogin = false;
@@ -21,8 +23,25 @@ class _LoginScreenState extends State<LoginScreen> {
       isFormValid = idC.text.isNotEmpty && passC.text.isNotEmpty;
     });
   }
-  void _loginWithGoogle() {
-    debugPrint("Login dengan Google ditekan");
+  Future<void> _loginWithGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      final account = await _googleSignIn.signIn();
+      if (!mounted) return;
+
+      if (account != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const InpatientCareScreen(),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login Google gagal: $e')),
+      );
+    }
   }
 
   @override
