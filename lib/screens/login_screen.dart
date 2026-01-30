@@ -21,6 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
       isFormValid = idC.text.isNotEmpty && passC.text.isNotEmpty;
     });
   }
+  void _loginWithGoogle() {
+    debugPrint("Login dengan Google ditekan");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Text("Lupa password?"),
                 ),
               ),
+              const SizedBox(height: 8),
               _button(
                 "Login",
                 isFormValid
@@ -80,8 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (_) =>
-                      const InpatientCareScreen(),
+                      builder: (_) => const InpatientCareScreen(),
                     ),
                   );
                 }
@@ -108,6 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+              _googleButton(),
             ],
           ],
         ),
@@ -174,6 +180,26 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Text(
           text,
           style: const TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+  Widget _googleButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: OutlinedButton.icon(
+        onPressed: _loginWithGoogle,
+        icon: Image.asset('assets/google_logo.png', height: 22),
+        label: const Text(
+          "Login dengan Google",
+          style: TextStyle(color: Colors.grey),
+        ),
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.blue),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
       ),
     );
