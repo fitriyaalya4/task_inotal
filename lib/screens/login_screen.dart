@@ -13,6 +13,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isFormValid = false;
   bool showPhoneLogin = false;
+  bool obscurePassword = true;
 
   void validateForm() {
     setState(() {
@@ -76,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.only(bottom: 16),
       child: TextField(
         controller: controller,
-        obscureText: isPassword,
+        obscureText: isPassword ? obscurePassword : false,
         keyboardType: keyboardType,
         onChanged: onChanged,
         decoration: InputDecoration(
@@ -90,6 +91,21 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.blue, width: 2),
           ),
+          suffixIcon: isPassword
+              ? IconButton(
+            icon: Icon(
+              obscurePassword
+                  ? Icons.visibility_off
+                  : Icons.visibility,
+              color: Colors.blue,
+            ),
+            onPressed: () {
+              setState(() {
+                obscurePassword = !obscurePassword;
+              });
+            },
+          )
+              : null,
         ),
       ),
     );
