@@ -61,7 +61,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 isPassword: true,
                 onChanged: (_) => validateForm(),
               ),
-              const SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {},
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.blue,
+                    overlayColor: Colors.transparent,
+                    splashFactory: NoSplash.splashFactory,
+                  ),
+                  child: const Text("Lupa password?"),
+                ),
+              ),
               _button(
                 "Login",
                 isFormValid
