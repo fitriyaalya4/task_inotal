@@ -8,6 +8,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController idC = TextEditingController();
+  final TextEditingController passC = TextEditingController();
+
+  bool isFormValid = false;
+  bool showPhoneLogin = false;
+
+  void validateForm() {
+    setState(() {
+      isFormValid = idC.text.isNotEmpty && passC.text.isNotEmpty;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text(
+          children: [
+            const Text(
               "Welcome Back!",
               style: TextStyle(
                 fontSize: 28,
@@ -34,7 +45,51 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 30),
+            const SizedBox(height: 30),
+            if (!showPhoneLogin) ...[
+              _field(
+                "Username / NIK",
+                controller: idC,
+                keyboardType: TextInputType.text,
+                onChanged: (_) => validateForm(),
+              ),
+              _field(
+                "Password",
+                controller: passC,
+                isPassword: true,
+                onChanged: (_) => validateForm(),
+              ),
+            ],
           ],
+        ),
+      ),
+    );
+  }
+  Widget _field(
+      String hint, {
+        bool isPassword = false,
+        TextEditingController? controller,
+        TextInputType? keyboardType,
+        Function(String)? onChanged,
+      }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextField(
+        controller: controller,
+        obscureText: isPassword,
+        keyboardType: keyboardType,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          hintText: hint,
+          hintStyle: const TextStyle(color: Colors.blueGrey),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.blue),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.blue, width: 2),
+          ),
         ),
       ),
     );
