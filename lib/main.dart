@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/inpatient_care_screen.dart';
+import 'package:task/screens/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const InpatientCareScreen(),
+      home: const LoginScreen(),
     );
   }
 }
