@@ -133,6 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               _googleButton(),
+              const SizedBox(height: 12),
+              _phoneButton(),
             ],
           ],
         ),
@@ -212,6 +214,26 @@ class _LoginScreenState extends State<LoginScreen> {
         icon: Image.asset('assets/google_logo.png', height: 22),
         label: const Text(
           "Login dengan Google",
+          style: TextStyle(color: Colors.grey),
+        ),
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(color: Colors.blue),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      ),
+    );
+  }
+  Widget _phoneButton() {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: OutlinedButton.icon(
+        onPressed: () {},
+        icon: const Icon(Icons.phone_android, color: Colors.blue),
+        label: const Text(
+          "Login dengan Nomor HP",
           style: TextStyle(color: Colors.grey),
         ),
         style: OutlinedButton.styleFrom(
