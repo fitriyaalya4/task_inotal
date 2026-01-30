@@ -87,6 +87,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
                     : null,
               ),
+              const SizedBox(height: 24),
+              Row(
+                children: const [
+                  Expanded(
+                    child: Divider(thickness: 1, color: Colors.blue),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      "or login with",
+                      style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(thickness: 1, color: Colors.blue),
+                  ),
+                ],
+              ),
             ],
           ],
         ),
